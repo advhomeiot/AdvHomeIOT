@@ -1,20 +1,18 @@
-#include "AdvHomeIOT.h"   // Include the header file
+#include <AdvHomeIOT.h>
+#include <ESP8266WiFi.h>
 
 // Constructor (optional)
 AdvHomeIOT::AdvHomeIOT() {
   // Optional initialization code
 }
 
-// This function checks if the device is connected to both Wi-Fi and the internet
+// This function checks if the device is connected to Wi-Fi
 bool AdvHomeIOT::isConnected() {
   // Check Wi-Fi connection status
   if (WiFi.status() == WL_CONNECTED) {
-    // Optionally, you can check internet access here by pinging a known server
-    if (WiFi.ping("google.com") >= 0) {  // Test internet connection (ping google)
-      return true;  // Device is connected to both Wi-Fi and the internet
-    }
+    return true;  // Device is connected to Wi-Fi
   }
-  return false;  // If not connected to Wi-Fi or internet
+  return false;  // Device is not connected to Wi-Fi
 }
 
 // This function retrieves the MAC address of the NodeMCU
