@@ -23,6 +23,7 @@ class AdvHomeIOT {
     PubSubClient _client;
 
     void connectMQTT();
+    bool authenticateToken();
 };
 
 #endif
