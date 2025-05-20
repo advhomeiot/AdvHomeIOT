@@ -7,17 +7,18 @@
 
 class AdvHomeIOT {
   public:
-    AdvHomeIOT(const char* token);  // Constructor takes only the token
+    AdvHomeIOT(const char* token);  // Token only
 
-    void beginMQTT();               // Starts MQTT connection
-    void loop();                    // Call in main loop
-    void publish(const char* topic, const char* payload);  // Optional utility
+    void begin();      // Call in setup after WiFi
+    void loop();       // Call in loop
+    PubSubClient& getClient();  // Access client to publish/subscribe
 
   private:
     const char* mqtt_server = "advhomeiot.shop";
     const int mqtt_port = 8883;
     const char* _token;
     String _mac;
+
     WiFiClientSecure _secureClient;
     PubSubClient _client;
 
