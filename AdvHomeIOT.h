@@ -1,31 +1,27 @@
 #ifndef AdvHomeIOT_h
 #define AdvHomeIOT_h
 
-#include <ESP8266WiFi.h>  // Include the necessary Wi-Fi library for NodeMCU
-#include <WiFiClientSecure.h>  // For secure MQTT communication (SSL/TLS)
-#include <PubSubClient.h>  // For MQTT communication
-
-// MQTT Broker settings (Directly mentioned here)
-#define MQTT_SERVER "advhomeiot.shop"  // MQTT Broker IP (update if needed)
-#define MQTT_PORT 8883  // MQTT Broker port (SSL/TLS)
+#include <ESP8266WiFi.h>
+#include <WiFiClientSecure.h>
+#include <PubSubClient.h>
 
 class AdvHomeIOT {
   public:
-    AdvHomeIOT(const char* token);  // Constructor to accept the token
+    AdvHomeIOT(const char* token);  // Constructor takes only the token
 
-    // Function to check if the device is connected to Wi-Fi
-    bool isConnected();  
-    
-    // Function to retrieve the MAC address of the NodeMCU
-    String getMACAddress();  
-    
-    // Function to connect to MQTT securely
-    bool connectToMQTT(PubSubClient& client);
+    void beginMQTT();               // Starts MQTT connection
+    void loop();                    // Call in main loop
+    void publish(const char* topic, const char* payload);  // Optional utility
 
   private:
-    String token;
-    String macAddress;  // Store the MAC address
+    const char* mqtt_server = "advhomeiot.shop";
+    const int mqtt_port = 8883;
+    const char* _token;
+    String _mac;
+    WiFiClientSecure _secureClient;
+    PubSubClient _client;
+
+    void connectMQTT();
 };
 
 #endif
-
